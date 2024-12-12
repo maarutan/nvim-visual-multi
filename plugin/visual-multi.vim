@@ -23,11 +23,9 @@ set cpo&vim
 
 " Commands
 com! -nargs=? -complete=customlist,vm#themes#complete VMTheme call vm#themes#load(<q-args>)
-
 com! -bar VMDebug  call vm#special#commands#debug()
 com! -bar VMClear  call vm#hard_reset()
 com! -bar VMLive   call vm#special#commands#live()
-
 com! -bang  -nargs=?       VMRegisters call vm#special#commands#show_registers(<bang>0, <q-args>)
 com! -range -bang -nargs=? VMSearch    call vm#special#commands#search(<bang>0, <line1>, <line2>, <q-args>)
 
@@ -43,15 +41,23 @@ hi default link VM_Insert DiffChange
 hi link MultiCursor VM_Cursor
 
 " Theme Management
+let s:Themes = {}
+
+" Регистрация темы из Lua
 fun! vm#themes#add_theme_from_lua(name) abort
   if has_key(s:Themes, a:name)
     echo "Theme '" . a:name . "' already exists."
     return
   endif
-  let s:Themes[a:name] = function('luaeval', 'require("vm_themes").get_theme("' . a:name . '")')
-  echo "Theme '" . a:name . "' added successfully from Lua."
+  try
+    let s:Themes[a:name] = function('luaeval', 'require("vm_themes").get_theme("' . a:name . '")')
+    echo "Theme '" . a:name . "' added successfully from Lua."
+  catch /^Vim\%((\a\+)\)\=:E/
+    echo "Error loading theme '" . a:name . "' from Lua. Ensure it is defined in your Lua configuration."
+  endtry
 endfun
 
+" Загрузка темы
 fun! vm#themes#load_theme(theme) abort
   if !has_key(s:Themes, a:theme)
     call vm#themes#add_theme_from_lua(a:theme)
@@ -64,6 +70,7 @@ fun! vm#themes#load_theme(theme) abort
   endif
 endfun
 
+" Автоматическая загрузка темы
 if exists('g:VM_theme')
   call vm#themes#load_theme(g:VM_theme)
 endif
