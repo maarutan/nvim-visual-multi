@@ -71,7 +71,7 @@ fun! vm#themes#search_highlight() abort
   " Init Search highlight.
   let hl = g:VM_highlight_matches
   let g:Vm.Search = hl == 'underline' ? 'Search term=underline cterm=underline gui=underline' :
-        \           hl == 'red'       ? 'Search ctermfg=196 guifg=#89B4FB' :
+        \           hl == 'red'       ? 'Search ctermfg=196 guifg=#ff0000' :
         \           hl =~ '^hi!\? '   ? substitute(g:VM_highlight_matches, '^hi!\?', '', '')
         \                             : 'Search term=underline cterm=underline gui=underline'
 endfun
@@ -123,9 +123,9 @@ let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 
 " Define new theme 'auto'
 fun! s:Themes.auto() abort
   hi! VM_Extend ctermbg=24                   guibg=#45475B
-  hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#CDD6F5    guifg=#262626
-  hi! VM_Insert ctermbg=239                  guibg=#CDD6F5    guifg=#262626
-  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#dadada   guifg=#262626
+  hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#BABABA   guifg=#262626
+  hi! VM_Insert ctermbg=239                  guibg=#BABABA    guifg=#262626
+  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#BABABA   guifg=#262626
 endfun
 
 " Define new theme 'autolight'
