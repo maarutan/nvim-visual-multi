@@ -13,7 +13,7 @@ function M.register_theme(name, theme_func)
 	vim.notify("Theme '" .. name .. "' registered successfully.", vim.log.levels.INFO)
 end
 
--- Получение темы (используется VimScript)
+-- Получение темы
 function M.get_theme(name)
 	return themes[name]
 end

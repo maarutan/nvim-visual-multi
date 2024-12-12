@@ -6,8 +6,12 @@ fun! vm#themes#add_theme_from_lua(name) abort
     echo "Theme '" . a:name . "' already exists."
     return
   endif
-  let s:Themes[a:name] = function('luaeval', 'require("nvim-multiple-cursors.lua.vm_themes").get_theme("' . a:name . '")')
-  echo "Theme '" . a:name . "' added successfully from Lua."
+  try
+    let s:Themes[a:name] = function('luaeval', 'require("vm_themes").get_theme("' . a:name . '")')
+    echo "Theme '" . a:name . "' added successfully from Lua."
+  catch /^Vim\%((\a\+)\)\=:E/
+    echo "Failed to load theme '" . a:name . "' from Lua. Ensure it is defined in `vm_themes`."
+  endtry
 endfun
 
 " Загрузка темы
