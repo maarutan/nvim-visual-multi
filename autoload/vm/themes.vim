@@ -126,9 +126,9 @@ let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 
 fun! s:Themes.auto() abort
   " Курсор в стиле оригинала: белый с мягким контрастом для текста
   hi! VM_Extend ctermbg=24                   guibg=#45475B
-  hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#ffffff    guifg=#000000
-  hi! VM_Insert ctermbg=239                  guibg=#4c4e50
-  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#CDD6F5    guifg=#262626
+  hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#CDD6F5    guifg=#000000
+  hi! VM_Insert ctermbg=239                  guibg=#CDD6F5
+  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#dadada    guifg=#262626
 endfun
       
 fun! s:Themes.iceblue()
