@@ -118,7 +118,7 @@ endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let s:Themes._light = ['autodark', 'sand', 'paper', 'lightblue1', 'lightblue2', 'lightpurple1', 'lightpurple2']
+let s:Themes._light = ['autolight', 'sand', 'paper', 'lightblue1', 'lightblue2', 'lightpurple1', 'lightpurple2']
 let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 'codedark', 'spacegray', 'olive', 'sand']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -130,6 +130,17 @@ fun! s:Themes.auto() abort
   hi! VM_Insert ctermbg=239                  guibg=#CDD6F5    guifg=#262626
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#CDD6F5    guifg=#262626
 endfun
+
+" Define new theme 'auto'
+fun! s:Themes.autolight() abort
+  " Курсор в стиле оригинала: белый с мягким контрастом для текста
+  hi! VM_Extend ctermbg=24                   guibg=#BCC0CD
+  hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#4C4F6A    guifg=#CDD6F5
+  hi! VM_Insert ctermbg=239                  guibg=#4C4F6A    guifg=#CDD6F5
+  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#4C4F6A    guifg=#CDD6F5
+endfun
+
+
       
 fun! s:Themes.iceblue()
   hi! VM_Extend ctermbg=24                   guibg=#005f87
