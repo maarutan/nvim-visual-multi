@@ -125,7 +125,7 @@ fun! s:Themes.auto() abort
   hi! VM_Extend ctermbg=24                   guibg=#45475B
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#CDD6F5    guifg=#262626
   hi! VM_Insert ctermbg=239                  guibg=#CDD6F5    guifg=#262626
-  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#CDD6F5    guifg=#262626
+  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#dadada   guifg=#262626
 endfun
 
 " Define new theme 'autolight'
@@ -133,7 +133,7 @@ fun! s:Themes.autolight() abort
   hi! VM_Extend ctermbg=24                   guibg=#BCC0CD
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#4C4F6A    guifg=#CDD6F5
   hi! VM_Insert ctermbg=239                  guibg=#4C4F6A    guifg=#CDD6F5
-  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#4C4F6A    guifg=#CDD6F5
+  hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#434C5E    guifg=#CDD6F5
 endfun
 
 fun! s:Themes.iceblue()
