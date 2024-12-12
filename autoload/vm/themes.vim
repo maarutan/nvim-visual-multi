@@ -122,7 +122,7 @@ let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 
 
 " Define new theme 'auto'
 fun! s:Themes.auto() abort
-  hi! VM_Extend ctermbg=24                   guibg=#45475B
+  hi! VM_Extend ctermbg=24                   guibg=#3B4261
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#BABABA   guifg=#262626
   hi! VM_Insert ctermbg=239                  guibg=#BABABA    guifg=#262626
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#BABABA   guifg=#262626
