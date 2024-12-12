@@ -21,6 +21,8 @@ let s:save_cpo = &cpo
 set cpo&vim
 "}}}
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 com! -nargs=? -complete=customlist,vm#themes#complete VMTheme call vm#themes#load(<q-args>)
 
 com! -bar VMDebug  call vm#special#commands#debug()
@@ -40,9 +42,7 @@ hi default link VM_Extend PmenuSel
 hi default link VM_Insert DiffChange
 hi link MultiCursor VM_Cursor
 
-if exists('g:VM_theme')
-  call vm#themes#load(g:VM_theme)
-endif
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:Vm = { 'hi'          : {},
       \ 'buffer'           : 0,
@@ -58,8 +58,67 @@ let g:Vm = { 'hi'          : {},
 
 let g:VM_highlight_matches = get(g:, 'VM_highlight_matches', 'underline')
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Global mappings
+
 call vm#plugs#permanent()
 call vm#maps#default()
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Registers
+
+let g:VM_persistent_registers = get(g:, 'VM_persistent_registers', 0)
+
+fun! s:vm_registers()
+  if exists('g:VM_PERSIST') && !g:VM_persistent_registers
+    unlet g:VM_PERSIST
+  elseif exists('g:VM_PERSIST')
+    let g:Vm.registers = deepcopy(g:VM_PERSIST)
+  endif
+endfun
+
+fun! s:vm_persist()
+  if exists('g:VM_PERSIST') && !g:VM_persistent_registers
+    unlet g:VM_PERSIST
+  elseif g:VM_persistent_registers
+    let g:VM_PERSIST = deepcopy(g:Vm.registers)
+  endif
+endfun
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocommands
+
+augroup VM_start
+  au!
+  au VimEnter     * call s:vm_registers()
+  au VimLeavePre  * call s:vm_persist()
+augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fun! VMInfos() abort
+    if !exists('b:VM_Selection') || empty(b:VM_Selection)
+        return {}
+    endif
+
+    let infos = {}
+    let VM = b:VM_Selection
+
+    let m = g:Vm.mappings_enabled ?    'M' : 'm'
+    let s = VM.Vars.single_region ?    'S' : 's'
+    let l = VM.Vars.multiline ?        'V' : 'v'
+
+    let infos.current = VM.Vars.index + 1
+    let infos.total = len(VM.Regions)
+    let infos.ratio = infos.current . ' / ' . infos.total
+    let infos.patterns = VM.Vars.search
+    let infos.status = m.s.l
+    return infos
+endfun
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
