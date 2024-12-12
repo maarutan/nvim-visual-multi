@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Set up highlighting
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let s:Themes = {}
 
@@ -9,11 +9,13 @@ augroup VM_reset_theme
   au ColorScheme * call vm#themes#init()
 augroup END
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! vm#themes#init() abort
-  if !exists('g:Vm') | return | endif
+  if !exists('g:Vm')
+    let g:Vm = {}
+    return
+  endif
 
   if !empty(g:VM_highlight_matches)
     let out = execute('highlight Search')
@@ -22,7 +24,7 @@ fun! vm#themes#init() abort
       let g:Vm.search_hi = "link Search " . hi
     else
       let hi = strtrans(substitute(out, '^.*xxx ', '', ''))
-      let hi = substitute(hi, '\^.', '', 'g')
+      let hi = substitute(hi, '\\^.', '', 'g')
       let g:Vm.search_hi = "Search " . hi
     endif
 
@@ -43,18 +45,18 @@ fun! vm#themes#init() abort
   endif
 endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! vm#themes#search_highlight() abort
   " Init Search highlight.
   let hl = g:VM_highlight_matches
   let g:Vm.Search = hl == 'underline' ? 'Search term=underline cterm=underline gui=underline' :
         \           hl == 'red'       ? 'Search ctermfg=196 guifg=#ff0000' :
-        \           hl =~ '^hi!\? '   ? substitute(g:VM_highlight_matches, '^hi!\?', '', '')
+        \           hl =~ '^hi!\\? '   ? substitute(g:VM_highlight_matches, '^hi!\\?', '', '')
         \                             : 'Search term=underline cterm=underline gui=underline'
 endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! vm#themes#load(theme) abort
   " Load a theme or set default.
@@ -69,49 +71,57 @@ fun! vm#themes#load(theme) abort
   call vm#themes#init()
 endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! vm#themes#complete(A, L, P) abort
   let valid = &background == 'light' ? s:Themes._light : s:Themes._dark
   return filter(sort(copy(valid)), 'v:val=~#a:A')
 endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! vm#themes#statusline() abort
-  if !exists('b:visual_multi')
+  if !exists('b:VM_Selection') || !exists('b:VM_Selection.Vars')
     return ''
   endif
-  let v = b:VM_Selection.Vars
-  let vm = VMInfos()
-  let color  = '%#VM_Extend#'
-  let single = b:VM_Selection.Vars.single_region ? '%#VM_Mono# SINGLE ' : ''
+
   try
+    let v = b:VM_Selection.Vars
+    let vm = VMInfos()
+    let color  = '%#VM_Extend#'
+    let single = v.single_region ? '%#VM_Mono# SINGLE ' : ''
+
     if v.insert
-      if b:VM_Selection.Insert.replace
-        let [ mode, color ] = [ 'V-R', '%#VM_Mono#' ]
+      if v.insert.replace
+        let [mode, color] = ['V-R', '%#VM_Mono#']
       else
-        let [ mode, color ] = [ 'V-I', '%#VM_Cursor#' ]
+        let [mode, color] = ['V-I', '%#VM_Cursor#']
       endif
     else
-      let mode = { 'n': 'V-M', 'v': 'V', 'V': 'V-L', "\<C-v>": 'V-B' }[mode()]
+      let mode_map = {'n': 'V-M', 'v': 'V', 'V': 'V-L', "\<C-v>": 'V-B'}
+      let mode = get(mode_map, mode(), 'V-M')
     endif
+
+    let mode = exists('v:statusline_mode') ? v:statusline_mode : mode
+    let patterns = string(vm.patterns)[:(winwidth(0) - 30)]
+    return printf("%s %s %s %s %s%s %s %%=%%l:%%c %s %s",
+          \ color, mode, '%#VM_Insert#', vm.ratio, single, '%#TabLine#',
+          \ patterns, color, vm.status . ' ')
   catch
-    let mode = 'V-M'
+    return 'VM Statusline Error'
   endtry
-  let mode = exists('v.statusline_mode') ? v.statusline_mode : mode
-  let patterns = string(vm.patterns)[:(winwidth(0)-30)]
-  return printf("%s %s %s %s %s%s %s %%=%%l:%%c %s %s",
-        \ color, mode, '%#VM_Insert#', vm.ratio, single, '%#TabLine#',
-        \ patterns, color, vm.status . ' ')
 endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+fun! VMInfos() abort
+  return {'patterns': 'example', 'ratio': '100%', 'status': 'Active'}
+endfun
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let s:Themes._light = ['autodark', 'sand', 'paper', 'lightblue1', 'lightblue2', 'lightpurple1', 'lightpurple2']
 let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 'codedark', 'spacegray', 'olive', 'sand']
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Define new theme 'auto'
 fun! s:Themes.auto() abort
   hi! VM_Extend ctermbg=24                   guibg=#005f87
@@ -119,7 +129,6 @@ fun! s:Themes.auto() abort
   hi! VM_Insert ctermbg=239                  guibg=#4c4e50
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#dfaf87    guifg=#262626
 endfun
-
 
 fun! s:Themes.iceblue()
   hi! VM_Extend ctermbg=24                   guibg=#005f87
