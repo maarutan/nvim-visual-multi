@@ -99,27 +99,20 @@ augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-fun! VMInfos() abort
+function! VMInfos() abort
     if !exists('b:VM_Selection') || empty(b:VM_Selection)
-        return {}
+        return ""
     endif
 
     let infos = {}
     let VM = b:VM_Selection
 
-    let m = g:Vm.mappings_enabled ?    'M' : 'm'
-    let s = VM.Vars.single_region ?    'S' : 's'
-    let l = VM.Vars.multiline ?        'V' : 'v'
+    " Формируем строку для lualine
+    let infos.ratio = (VM.Vars.index + 1) . " / " . len(VM.Regions)
+    let infos.status = (g:Vm.mappings_enabled ? 'M' : 'm') .
+                       \ (VM.Vars.single_region ? 'S' : 's') .
+                       \ (VM.Vars.multiline ? 'V' : 'v')
 
-    let infos.current = VM.Vars.index + 1
-    let infos.total = len(VM.Regions)
-    let infos.ratio = infos.current . ' / ' . infos.total
-    let infos.patterns = VM.Vars.search
-    let infos.status = m.s.l
-    return infos
-endfun
-
-let &cpo = s:save_cpo
-unlet s:save_cpo
-" vim: ft=vim et sw=2 ts=2 sts=2 fdm=marker
+    " Возвращаем строку в виде готового сообщения
+    return "VM: " . infos.ratio . " (" . infos.status . ")"
+endfunction
