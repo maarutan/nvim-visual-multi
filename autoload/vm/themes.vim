@@ -1,7 +1,3 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Set up highlighting
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let s:Themes = {}
 
 augroup VM_reset_theme
@@ -19,7 +15,7 @@ fun! vm#themes#init() abort
       let g:Vm.search_hi = "link Search " . hi
     else
       let hi = strtrans(substitute(out, '^.*xxx ', '', ''))
-      let hi = substitute(hi, '\^.', '', 'g')
+      let hi = substitute(hi, '\\^.', '', 'g')
       let g:Vm.search_hi = "Search " . hi
     endif
 
@@ -44,7 +40,7 @@ fun! vm#themes#search_highlight() abort
   let hl = g:VM_highlight_matches
   let g:Vm.Search = hl == 'underline' ? 'Search term=underline cterm=underline gui=underline' :
         \           hl == 'red'       ? 'Search ctermfg=196 guifg=#ff0000' :
-        \           hl =~ '^hi!\? '   ? substitute(g:VM_highlight_matches, '^hi!\?', '', '') :
+        \           hl =~ '^hi!\\? '   ? substitute(g:VM_highlight_matches, '^hi!\\?', '', '') :
         \                             'Search term=underline cterm=underline gui=underline'
 endfun
 
@@ -70,15 +66,18 @@ fun! vm#themes#add_theme_from_lua(name) abort
   try
     let s:Themes[a:name] = function('luaeval', 'require("vm_themes").get_theme("' . a:name . '")')
     echo "Theme '" . a:name . "' added successfully from Lua."
-  catch /^Vim\%((\a\+)\)\=:E/
+  catch /^Vim\\%(\\(\\a\\+\\)\\)\\=:E/
     echo "Error loading theme '" . a:name . "' from Lua."
   endtry
 endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Existing themes
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" (Текущий список тем остаётся без изменений)
+" Define new theme 'auto'
+fun! s:Themes.auto() abort
+  hi! VM_Mono guifg=#ffff00 guibg=#000000 ctermfg=226 ctermbg=16
+  hi! VM_Cursor guifg=#00ff00 guibg=#005f00 ctermfg=46 ctermbg=22
+  hi! VM_Extend guifg=#ff00ff guibg=#5f005f ctermfg=201 ctermbg=52
+  hi! VM_Insert guifg=#00ffff guibg=#005f5f ctermfg=51 ctermbg=23
+  hi! MultiCursor guifg=#ffffff guibg=#000000 ctermfg=15 ctermbg=16
+endfun
 
 " vim: et ts=2 sw=2 sts=2 :
