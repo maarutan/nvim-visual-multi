@@ -6,10 +6,19 @@ let s:Themes = {}
 
 augroup VM_reset_theme
   au!
+  " Инициализация темы при смене `background`
+  au OptionSet background call vm#themes#apply_background()
   au ColorScheme * call vm#themes#init()
 augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+fun! vm#themes#apply_background() abort
+  " Автоматический выбор темы на основе значения `background`
+  if &background == 'dark'
+    call vm#themes#load('auto')
+  elseif &background == 'light'
+    call vm#themes#load('autolight')
+  endif
+endfun
 
 fun! vm#themes#init() abort
   if !exists('g:Vm')
@@ -24,7 +33,7 @@ fun! vm#themes#init() abort
       let g:Vm.search_hi = "link Search " . hi
     else
       let hi = strtrans(substitute(out, '^.*xxx ', '', ''))
-      let hi = substitute(hi, '\\^.', '', 'g')
+      let hi = substitute(hi, '\^.', '', 'g')
       let g:Vm.search_hi = "Search " . hi
     endif
 
@@ -45,19 +54,6 @@ fun! vm#themes#init() abort
   endif
 endfun
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-fun! vm#themes#search_highlight() abort
-  " Init Search highlight.
-  let hl = g:VM_highlight_matches
-  let g:Vm.Search = hl == 'underline' ? 'Search term=underline cterm=underline gui=underline' :
-        \           hl == 'red'       ? 'Search ctermfg=196 guifg=#ff0000' :
-        \           hl =~ '^hi!\\? '   ? substitute(g:VM_highlight_matches, '^hi!\\?', '', '')
-        \                             : 'Search term=underline cterm=underline gui=underline'
-endfun
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 fun! vm#themes#load(theme) abort
   " Load a theme or set default.
   if empty(a:theme) || a:theme == 'default'
@@ -71,14 +67,19 @@ fun! vm#themes#load(theme) abort
   call vm#themes#init()
 endfun
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+fun! vm#themes#search_highlight() abort
+  " Init Search highlight.
+  let hl = g:VM_highlight_matches
+  let g:Vm.Search = hl == 'underline' ? 'Search term=underline cterm=underline gui=underline' :
+        \           hl == 'red'       ? 'Search ctermfg=196 guifg=#ff0000' :
+        \           hl =~ '^hi!\? '   ? substitute(g:VM_highlight_matches, '^hi!\?', '', '')
+        \                             : 'Search term=underline cterm=underline gui=underline'
+endfun
 
 fun! vm#themes#complete(A, L, P) abort
   let valid = &background == 'light' ? s:Themes._light : s:Themes._dark
   return filter(sort(copy(valid)), 'v:val=~#a:A')
 endfun
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 fun! vm#themes#statusline() abort
   if !exists('b:VM_Selection') || !exists('b:VM_Selection.Vars')
@@ -116,32 +117,25 @@ fun! VMInfos() abort
   return {'patterns': 'example', 'ratio': '100%', 'status': 'Active'}
 endfun
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let s:Themes._light = ['autolight', 'sand', 'paper', 'lightblue1', 'lightblue2', 'lightpurple1', 'lightpurple2']
 let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 'codedark', 'spacegray', 'olive', 'sand']
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Define new theme 'auto'
 fun! s:Themes.auto() abort
-  " Курсор в стиле оригинала: белый с мягким контрастом для текста
   hi! VM_Extend ctermbg=24                   guibg=#45475B
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#CDD6F5    guifg=#262626
   hi! VM_Insert ctermbg=239                  guibg=#CDD6F5    guifg=#262626
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#CDD6F5    guifg=#262626
 endfun
 
-" Define new theme 'auto'
+" Define new theme 'autolight'
 fun! s:Themes.autolight() abort
-  " Курсор в стиле оригинала: белый с мягким контрастом для текста
   hi! VM_Extend ctermbg=24                   guibg=#BCC0CD
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#4C4F6A    guifg=#CDD6F5
   hi! VM_Insert ctermbg=239                  guibg=#4C4F6A    guifg=#CDD6F5
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#4C4F6A    guifg=#CDD6F5
 endfun
 
-
-      
 fun! s:Themes.iceblue()
   hi! VM_Extend ctermbg=24                   guibg=#005f87
   hi! VM_Cursor ctermbg=31    ctermfg=237    guibg=#0087af    guifg=#87dfff
