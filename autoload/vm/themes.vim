@@ -145,10 +145,10 @@ endfun
 
 
 fun! s:Themes.ocean_custom()
-  hi! VM_Extend ctermbg=25                   guibg=#45475B
-  hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#89B4FB    guifg=#101019
-  hi! VM_Insert ctermbg=239                  guibg=#CAA5F6
-  hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#CDD6F5    guifg=#101019
+  hi! VM_Extend ctermbg=25                   guibg=#2A2B3D
+  hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#89B4FB    guifg=#1E1E2F
+  hi! VM_Insert ctermbg=239                  guibg=#C7A2F0
+  hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#CDD6F5    guifg=#1E1E2F
 endfun
 
 fun! s:Themes.ocean()
