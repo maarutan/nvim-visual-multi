@@ -117,11 +117,11 @@ fun! VMInfos() abort
   return {'patterns': 'example', 'ratio': '100%', 'status': 'Active'}
 endfun
 
-let s:Themes._light = ['autolight', "catppuccin_latte"]
-let s:Themes._dark = ['auto', "catppuccin_mocha" ]
+let s:Themes._light = ['auto_light', "catppuccin_latte", ]
+let s:Themes._dark = ['auto_dark', "catppuccin_mocha", ]
 
 " Define new theme 'auto'
-fun! s:Themes.auto() abort
+fun! s:Themes.auto_dark() abort
   hi! VM_Extend ctermbg=24                   guibg=#45475B
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#CDD6F5   guifg=#262626
   hi! VM_Insert ctermbg=239                  guibg=#CDD6F5   guifg=#262626
@@ -129,7 +129,7 @@ fun! s:Themes.auto() abort
 endfun
 
 " Define new theme 'autolight'
-fun! s:Themes.autolight() abort
+fun! s:Themes.auto_light() abort
   hi! VM_Extend ctermbg=24                   guibg=#BCC0CD
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#4C4F6A    guifg=#CDD6F5
   hi! VM_Insert ctermbg=239                  guibg=#4C4F6A    guifg=#CDD6F5
@@ -146,7 +146,7 @@ fun! s:Themes.catppuccin_mocha()
 endfun
 
 fun! s:Themes.catppuccin_latte()
-  hi! VM_Extend ctermbg=25                   guibg=#CBCFD9
+  hi! VM_Extend ctermbg=25                   guibg=#BCC0CD
   hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#1E66F6    guifg=#EFF1F6
   hi! VM_Insert ctermbg=239   ctermfg=239    guibg=#40A02C    guifg=#EFF1F6
   hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#4C4F6A    guifg=#EFF1F6
