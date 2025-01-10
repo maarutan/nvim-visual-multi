@@ -145,7 +145,7 @@ endfun
 
 
 fun! s:Themes.ocean_custom()
-  hi! VM_Extend ctermbg=25                   guibg=#CBA6F7
+  hi! VM_Extend ctermbg=25                   guibg=#45475B
   hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#89B4FB    guifg=#101019
   hi! VM_Insert ctermbg=239                  guibg=#101019
   hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#CDD6F5    guifg=#101019
