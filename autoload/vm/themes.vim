@@ -118,7 +118,7 @@ fun! VMInfos() abort
 endfun
 
 let s:Themes._light = ['autolight', 'sand', 'paper', 'lightblue1', 'lightblue2', 'lightpurple1', 'lightpurple2']
-let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'neon', 'purplegray', 'nord', 'codedark', 'spacegray', 'olive', 'sand']
+let s:Themes._dark = ['auto', 'iceblue', 'ocean', 'ocean_custom', 'neon', 'purplegray', 'nord', 'codedark', 'spacegray', 'olive', 'sand']
 
 " Define new theme 'auto'
 fun! s:Themes.auto() abort
@@ -141,6 +141,14 @@ fun! s:Themes.iceblue()
   hi! VM_Cursor ctermbg=31    ctermfg=237    guibg=#0087af    guifg=#87dfff
   hi! VM_Insert ctermbg=239                  guibg=#4c4e50
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#dfaf87    guifg=#262626
+endfun
+
+
+fun! s:Themes.ocean_custom()
+  hi! VM_Extend ctermbg=25                   guibg=#F38BA8
+  hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#89B4FB    guifg=#4e4e4e
+  hi! VM_Insert ctermbg=239                  guibg=#4c4e50
+  hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#CDD6F5    guifg=#4e4e4e
 endfun
 
 fun! s:Themes.ocean()
