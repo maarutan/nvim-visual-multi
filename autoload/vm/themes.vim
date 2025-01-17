@@ -180,9 +180,9 @@ endfun
 
 
 fun! s:Themes.tokyonight_day()
-  hi! VM_Extend ctermbg=252                  guibg=#e1e2e7
-  hi! VM_Cursor ctermbg=251   ctermfg=236    guibg=#dcdfe4    guifg=#1a1b26
-  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#ffffff    guifg=#1a1b26
+  hi! VM_Extend ctermbg=252                  guibg=#C4C8DA
+  hi! VM_Cursor ctermbg=251   ctermfg=236    guibg=#3760BF    guifg=#1a1b26
+  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#366B8A    guifg=#1a1b26
   hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
 endfun
 
