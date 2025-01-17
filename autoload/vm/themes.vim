@@ -117,18 +117,18 @@ function! VMInfos() abort
   return {'patterns': 'example', 'ratio': '100%', 'status': 'Active'}
 endfunction
 
-let s:Themes._light = ['auto_light', "catppuccin_latte", ]
-let s:Themes._dark = ['auto_dark', "catppuccin_mocha", ]
+let s:Themes._light = ['auto_light', "catppuccin_latte", "gruvbox_day" ]
+let s:Themes._dark = ['auto_dark', "catppuccin_mocha", "gruvbox" ]
 
-" Define new theme 'auto'
+
+
+ """""" auto theme """"""
 fun! s:Themes.auto_dark() abort
   hi! VM_Extend ctermbg=24                   guibg=#45475B
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#CDD6F5   guifg=#262626
   hi! VM_Insert ctermbg=239                  guibg=#CDD6F5   guifg=#262626
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#dadada   guifg=#262626
 endfun
-
-" Define new theme 'autolight'
 fun! s:Themes.auto_light() abort
   hi! VM_Extend ctermbg=24                   guibg=#BCC0CD
   hi! VM_Cursor ctermbg=15    ctermfg=0      guibg=#4C4F6A    guifg=#CDD6F5
@@ -136,18 +136,36 @@ fun! s:Themes.auto_light() abort
   hi! VM_Mono   ctermbg=180   ctermfg=235    guibg=#4C4F6A    guifg=#CDD6F5
 endfun
 
-"Define new theme 'catppuccin_mocha'"
 
+
+
+ """""" catppuccin theme """"""
 fun! s:Themes.catppuccin_mocha()
   hi! VM_Extend ctermbg=25                   guibg=#4C4F6A
   hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#89B4FB    guifg=#1E1E2F
   hi! VM_Insert ctermbg=239   ctermfg=239    guibg=#A6E3A2    guifg=#1E1E2F
   hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#CDD6F5    guifg=#1E1E2F
 endfun
-
 fun! s:Themes.catppuccin_latte()
   hi! VM_Extend ctermbg=25                   guibg=#BCC0CD
   hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#1E66F6    guifg=#EFF1F6
   hi! VM_Insert ctermbg=239   ctermfg=239    guibg=#40A02C    guifg=#EFF1F6
   hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#4C4F6A    guifg=#EFF1F6
 endfun
+
+
+
+ """""" gruvbox theme """"""
+ fun! s:Themes.gruvbox()
+  hi! VM_Extend ctermbg=25                   guibg=#458588
+  hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#83a598    guifg=#3c3836
+  hi! VM_Insert ctermbg=239   ctermfg=239    guibg=#3c3836    guifg=#3c3836
+  hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#d79921    guifg=#3c3836
+endfun
+fun! s:Themes.gruvbox_day()
+  hi! VM_Extend ctermbg=25                   guibg=#d5c4a1
+  hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#a89984    guifg=#3c3836
+  hi! VM_Insert ctermbg=239   ctermfg=239    guibg=#f2e5bc    guifg=#3c3836
+  hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#fabd2f    guifg=#3c3836
+endfun
+
