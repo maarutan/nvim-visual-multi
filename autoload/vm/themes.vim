@@ -172,9 +172,9 @@ endfun
 """""" tokyonight theme """"""
 
 fun! s:Themes.tokyonight()
-  hi! VM_Extend ctermbg=61                   guibg=#32344a
-  hi! VM_Cursor ctermbg=68    ctermfg=236    guibg=#444b6a    guifg=#1a1b26
-  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#1a1b26    guifg=#1a1b26
+  hi! VM_Extend ctermbg=61                   guibg=#3B4261
+  hi! VM_Cursor ctermbg=68    ctermfg=236    guibg=#FF966C    guifg=#1a1b26
+  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#5DACEA    guifg=#1a1b26
   hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
 endfun
 
