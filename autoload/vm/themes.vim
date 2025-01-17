@@ -117,8 +117,8 @@ function! VMInfos() abort
   return {'patterns': 'example', 'ratio': '100%', 'status': 'Active'}
 endfunction
 
-let s:Themes._light = ['auto_light', "catppuccin_latte", "gruvbox_day" ]
-let s:Themes._dark = ['auto_dark', "catppuccin_mocha", "gruvbox" ]
+let s:Themes._light = ['auto_light', "catppuccin_latte", "gruvbox_day", "tokyonight_day" ]
+let s:Themes._dark = ['auto_dark', "catppuccin_mocha", "gruvbox", "tokyonight" ]
 
 
 
@@ -167,5 +167,22 @@ fun! s:Themes.gruvbox_day()
   hi! VM_Cursor ctermbg=39    ctermfg=239    guibg=#a89984    guifg=#3c3836
   hi! VM_Insert ctermbg=239   ctermfg=239    guibg=#f2e5bc    guifg=#3c3836
   hi! VM_Mono   ctermbg=186   ctermfg=239    guibg=#fabd2f    guifg=#3c3836
+endfun
+
+"""""" tokyonight theme """"""
+
+fun! s:Themes.tokyonight()
+  hi! VM_Extend ctermbg=61                   guibg=#32344a
+  hi! VM_Cursor ctermbg=68    ctermfg=236    guibg=#444b6a    guifg=#1a1b26
+  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#1a1b26    guifg=#1a1b26
+  hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
+endfun
+
+
+fun! s:Themes.tokyonight_day()
+  hi! VM_Extend ctermbg=252                  guibg=#e1e2e7
+  hi! VM_Cursor ctermbg=251   ctermfg=236    guibg=#dcdfe4    guifg=#1a1b26
+  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#ffffff    guifg=#1a1b26
+  hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
 endfun
 
