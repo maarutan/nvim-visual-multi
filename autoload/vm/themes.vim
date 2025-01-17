@@ -117,8 +117,8 @@ function! VMInfos() abort
   return {'patterns': 'example', 'ratio': '100%', 'status': 'Active'}
 endfunction
 
-let s:Themes._light = ['auto_light', "catppuccin_latte", "gruvbox_day", "tokyonight_day" ]
-let s:Themes._dark = ['auto_dark', "catppuccin_mocha", "gruvbox", "tokyonight" ]
+let s:Themes._light = ['auto_light', "catppuccin_latte", "gruvbox_day", "tokyonight_day", "dracula_day" ]
+let s:Themes._dark = ['auto_dark', "catppuccin_mocha", "gruvbox", "tokyonight", "dracula" ]
 
 
 
@@ -177,12 +177,26 @@ fun! s:Themes.tokyonight()
   hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#5DACEA    guifg=#1a1b26
   hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
 endfun
-
-
 fun! s:Themes.tokyonight_day()
   hi! VM_Extend ctermbg=252                  guibg=#C4C8DA
   hi! VM_Cursor ctermbg=251   ctermfg=236    guibg=#3760BF    guifg=#1a1b26
   hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#366B8A    guifg=#1a1b26
+  hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
+endfun
+
+
+"""""" dracula theme """"""
+
+fun! s:Themes.dracula()
+  hi! VM_Extend ctermbg=61                   guibg=#645484
+  hi! VM_Cursor ctermbg=68    ctermfg=236    guibg=#F1FA8C    guifg=#1a1b26
+  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#50FA7B    guifg=#1a1b26
+  hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
+endfun
+fun! s:Themes.dracula_day()
+  hi! VM_Extend ctermbg=252                  guibg=#CDBCE8
+  hi! VM_Cursor ctermbg=251   ctermfg=236    guibg=#8D63D9   guifg=#1a1b26
+  hi! VM_Insert ctermbg=236   ctermfg=236    guibg=#20BA4B    guifg=#1a1b26
   hi! VM_Mono   ctermbg=178   ctermfg=236    guibg=#c0caf5    guifg=#1a1b26
 endfun
 
